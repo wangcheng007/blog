@@ -1,0 +1,55 @@
+---
+    version: "3"
+
+    networks:
+        backend:
+        front:
+
+    services:
+
+        mysql:
+            container_name: blog_data
+            image: mysql:5.7
+            volumes:
+                - ../mysql/mysql.cnf:/etc/mysql/my.cnf:ro
+                - blog-data:/var/lib/mysql
+                # - ../mysql/setup.sh:/var/lib/setup.sh
+                # - ../mysql/init.sql:/var/lib/init.sql
+            environment:
+                MYSQL_ROOT_PASSWORD: root
+            ports:
+                - "3306:3306"
+            networks:
+                - backend
+
+        server:
+            image: blog_server_image
+            build:
+                context: ../
+                dockerfile: node/Dockerfile
+            ports:
+                - "3000:3000"
+            env_file: ../node/.env
+            container_name: blog_server
+            volumes:
+                - ../server:/usr/blog/server
+            depends_on:
+                - mysql
+            networks:
+                - backend
+                - front
+
+        nginx:
+            container_name: blog_web
+            image: nginx:latest
+            volumes:
+                - ../nginx/nginx.conf:/etc/nginx/nginx.conf
+                - ../web/dist:/etc/nginx/blog
+            ports:
+                - "8002:8002"
+            networks:
+                - front
+            depends_on:
+                - mysql
+    volumes:
+        blog-data:

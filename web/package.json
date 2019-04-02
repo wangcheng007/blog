@@ -1,0 +1,44 @@
+{
+    "name": "blog_web",
+    "version": "1.0.0",
+    "description": "webpack 4 example & bundl",
+    "scripts": {
+        "build": "rm -rf ./dist && webpack --config ./config/webpack.pord.config.js",
+        "dev": "webpack-dev-server --config ./config/webpack.dev.config.js",
+        "lint": "tslint -c tslint.json src/**/*"
+    },
+    "keywords": [
+        "webpack4"
+    ],
+    "author": "lanjing",
+    "license": "ISC",
+    "dependencies": {
+        "react": "^16.7.0",
+        "react-dom": "^16.7.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.2.2",
+        "@babel/plugin-proposal-class-properties": "^7.4.0",
+        "@babel/plugin-proposal-decorators": "^7.4.0",
+        "@babel/preset-env": "^7.3.1",
+        "@babel/preset-react": "^7.0.0",
+        "@types/react": "^16.8.10",
+        "@types/react-dom": "^16.8.3",
+        "awesome-typescript-loader": "^5.2.1",
+        "babel-loader": "^8.0.5",
+        "cache-loader": "^2.0.1",
+        "html-webpack-plugin": "^3.2.0",
+        "progress-bar-webpack-plugin": "^1.12.0",
+        "tsconfig-paths-webpack-plugin": "^3.2.0",
+        "tslint": "^5.15.0",
+        "tslint-config-standard": "^8.0.1",
+        "tslint-react": "^4.0.0",
+        "typescript": "^3.4.1",
+        "webpack": "^4.29.0",
+        "webpack-bundle-analyzer": "^3.0.3",
+        "webpack-cli": "^3.2.1",
+        "webpack-dev-server": "^3.2.1",
+        "webpack-merge": "^4.2.1",
+        "webpack-parallel-uglify-plugin": "^1.1.0"
+    }
+}

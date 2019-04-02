@@ -1,0 +1,6 @@
+#!/bin/sh
+
+docker stop blog_server blog_data
+docker rm blog_server blog_data
+
+docker rmi blog_server_image
