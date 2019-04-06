@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-// import utils from 'common/utils';
-// import Table from 'components/table';
 import ReactDOM from 'react-dom';
+import FrontLayout from '@components/frontLayout';
 
 export default class PageA extends Component {
     render() {
         return (
-            <div>
-                aaa
-            </div>
+            <FrontLayout>
+                ccc
+            </FrontLayout>
         );
     }
 }

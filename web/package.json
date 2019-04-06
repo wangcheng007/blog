@@ -5,7 +5,7 @@
     "scripts": {
         "build": "rm -rf ./dist && webpack --config ./config/webpack.pord.config.js",
         "dev": "webpack-dev-server --config ./config/webpack.dev.config.js",
-        "lint": "tslint -c tslint.json src/**/*"
+        "lint": "tslint -c tslint.json src/**/*.tsx"
     },
     "keywords": [
         "webpack4"
@@ -13,6 +13,7 @@
     "author": "lanjing",
     "license": "ISC",
     "dependencies": {
+        "antd": "^3.16.1",
         "react": "^16.7.0",
         "react-dom": "^16.7.0"
     },
@@ -22,13 +23,23 @@
         "@babel/plugin-proposal-decorators": "^7.4.0",
         "@babel/preset-env": "^7.3.1",
         "@babel/preset-react": "^7.0.0",
+        "@types/antd": "^1.0.0",
         "@types/react": "^16.8.10",
         "@types/react-dom": "^16.8.3",
+        "autoprefixer": "^9.5.0",
         "awesome-typescript-loader": "^5.2.1",
         "babel-loader": "^8.0.5",
         "cache-loader": "^2.0.1",
+        "css-loader": "^2.1.1",
         "html-webpack-plugin": "^3.2.0",
+        "less": "^3.9.0",
+        "less-loader": "^4.1.0",
+        "mini-css-extract-plugin": "^0.5.0",
+        "open-browser-webpack-plugin": "^0.0.5",
+        "postcss-loader": "^3.0.0",
+        "precss": "^4.0.0",
         "progress-bar-webpack-plugin": "^1.12.0",
+        "style-loader": "^0.23.1",
         "tsconfig-paths-webpack-plugin": "^3.2.0",
         "tslint": "^5.15.0",
         "tslint-config-standard": "^8.0.1",

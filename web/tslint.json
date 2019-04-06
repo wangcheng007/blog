@@ -1,11 +1,23 @@
 {
     "extends": ["tslint:latest", "tslint-react", "tslint-config-standard"],
     "rules": {
-        "quotemark": [true, "single"],
+        "quotemark": [true, "single", "jsx-double"],
         "no-console": [true, "warn"],
         "arrow-return-shorthand": [false],
         "ter-indent": [true, 4],
         "semicolon": [true, "always"],
-        "max-line-length": [true, 220]
+        "max-line-length": [true, 220],
+        "member-access": false,
+        "space-before-function-paren": false,
+        "ordered-imports": false,
+        "no-implicit-dependencies": false,
+        "jsx-no-lambda": false,
+        "jsx-no-multiline-js": false,
+        "jsx-curly-spacing": [true, { "when": "never", "allowMultiline": false }],
+        "jsx-boolean-value": false,
+        "object-literal-sort-keys": false //Disable for typescript
+    },
+    "jsRules": {
+        "object-literal-sort-keys": false //Disable for typescript
     }
 }

@@ -1,0 +1,213 @@
+.layout {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    &_switch {
+        position: fixed;
+        top: 0px;
+        left: 20px;
+    }
+
+    &_nav {
+        height: 100%;
+        background-color: #fff;
+        width: 280px;
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        &__on {
+            animation: .5s nav_on ease forwards;
+        }
+
+        &__off {
+            animation: .5s nav_off ease forwards;
+        }
+
+        &_header {
+            width: 200px;
+            height: 180px;
+            display: flex;
+            background-image: url(https://s10.mogucdn.com/mlcdn/c45406/190403_4gc2jfja1226hifg4ad0e9eced821_1200x675.jpg);
+            background-size: 100% 100%;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+
+            &_avatar {
+                width: 60px;
+                height: 60px;
+                border-radius: 100%;
+                box-shadow: 0px 0px 2px 2px #fff;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 100%;
+                }
+            }
+
+            &_switch {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #fff;
+                height: 30px;
+                width: 30px;
+                border-radius: 100%;
+                box-shadow: 0px 0px 2px 2px #fff;
+                margin-top: 20px;
+            }
+        }
+
+        &_list {
+            width: 280px;
+            padding-top: 10px;
+            background-color: #fff;
+
+            &__item {
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0 40px;
+
+                &_icon {
+                    font-size: 22px;
+                }
+
+                i {
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                a {
+                    color: #333;
+                    text-decoration: none;
+                    margin-left: 15px;
+                }
+
+                &:hover {
+                    color: #008080;
+                    background-color: #eee;
+
+                    a {
+                        color: #008080;
+                    }
+                }
+            }
+        }
+    }
+
+    &_pages {
+        height: 100%;
+        overflow-x: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+
+        &__on {
+            margin-left: 280px;
+        }
+
+        &__off {
+            margin-left: 0;
+        }
+
+        &_wrapper {
+            margin: 20px;
+        }
+    }
+
+    &_bg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    &_gotop {
+        width: 48px;
+        height: 48px;
+        position: fixed;
+        bottom: 20px;
+        font-size: 32px;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100%;
+        overflow: hidden;
+
+        &__on {
+            animation: .2s gotop_on ease forwards;
+        }
+
+        &__off {
+            animation: .2s gotop_off ease forwards;
+        }
+    }
+}
+
+@keyframes nav_on {
+    0% {
+        width: 0px;
+        box-shadow: 1px -6px 3px 3px #000;
+    }
+    100% {
+        width: 280px;
+        box-shadow: 1px -6px 3px 3px #000;
+    }
+}
+
+@keyframes nav_off {
+    0% {
+        width: 280px;
+        box-shadow: 1px -6px 3px 3px #000;
+    }
+    99% {
+        box-shadow: 1px -6px 3px 3px #000;
+    }
+    100% {
+        width: 0px;
+        box-shadow: none;
+    }
+}
+
+@keyframes gotop_on {
+    0% {
+        right: -50px;
+    }
+    100% {
+        right: 20px;
+    }
+}
+
+@keyframes gotop_off {
+    0% {
+        right: 20px;
+    }
+    100% {
+        right: -50px;
+    }
+}
+
+body, html {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+}

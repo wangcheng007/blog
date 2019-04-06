@@ -4,6 +4,11 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
+// 获取页面 对应title
+const pageConfigPath = path.resolve(__dirname, '../template/config.json');
+const pageConfig = JSON.parse(fs.readFileSync(pageConfigPath, 'utf-8'));
 
 // 页面地址
 const pagesPath = path.resolve(__dirname, '../src/pages');
@@ -18,9 +23,11 @@ pages.forEach((item) => {
 function createHtml(pages) {
     const htmlArr = pages.map(item => {
         return new HtmlWebpackPlugin({
-            template: './template/index.html',
+            template: './template/index.ejs',
             chunks: [`pages/${item}/index`, 'vender', 'commons', 'compoents'],
-            filename: item === 'index' ? 'index.html' : `../html/${item}.html`, // html位置
+            filename: `./html/${item}.html`, // html位置
+            title: pageConfig[item],
+            inject: true,
             minify: {// 压缩html
                 collapseWhitespace: true,
                 preserveLineBreaks: true
@@ -39,19 +46,47 @@ module.exports = {
 
     // 2、填写项目的出口信息
     output: {
-        path: path.resolve(__dirname, '../dist/assets'),
-        filename: '[name].js',
-        publicPath:'/dist/'
+        path: path.resolve(__dirname, '../dist'),
+        filename: 'assets/[name].js'
     },
 
     // 3、填写项目的loader 配置
     module: {
         rules: [
             {
-                test: /\.(j|t)sx?/, // 匹配文件路径的正则表达式，通常我们都是匹配文件类型后缀
+                test: /\.less$/,
+                include: [
+                    path.resolve(__dirname, '../src')
+                ],
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'cache-loader',
+                        options: {
+                            cacheDirectory: path.resolve(__dirname, '../.cache-loader')
+                        }
+                    },
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: { importLoaders: 1 }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            config: {
+                                path: path.resolve(__dirname, '../')
+                            }
+                        }
+                    },
+                    'less-loader'
+                ]
+            },
+            {
+                test: /\.(j|t)sx?/,
                 exclude: /node_modules/,
                 include: [
-                    path.resolve(__dirname, '../src') // 指定哪些路径下的文件需要经过 loader 处理
+                    path.resolve(__dirname, '../src')
                 ],
                 use: [
                     {
@@ -75,6 +110,10 @@ module.exports = {
             format: 'build [:bar] :percent (:elapsed seconds)',
             clear: false,
             width: 60
+        }),
+
+        new MiniCssExtractPlugin({
+            filename: 'assets/style.css'
         })
 
         // new BundleAnalyzerPlugin()
@@ -87,16 +126,17 @@ module.exports = {
             cacheGroups: {
                 vender: {
                     test: /node_modules/,
-                    filename: 'react.[hash].js',
+                    filename: 'assets/vender.js',
                     chunks: 'initial',
                     minChunks: 1,
                     priority: 10,
+                    minSize: 0,
                     enforce: true,
                     name: 'vender'
                 },
 
                 commons: {
-                    filename: 'commons/index.js',
+                    filename: 'assets/commons/index.js',
                     chunks: 'initial',
                     test: /common/,
                     minChunks: 1,
@@ -106,7 +146,7 @@ module.exports = {
                 },
 
                 components: {
-                    filename: 'compoents/index.js',
+                    filename: 'assets/compoents/index.js',
                     chunks: 'initial',
                     test: /components/,
                     minChunks: 1,
@@ -127,12 +167,14 @@ module.exports = {
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
 
         alias: {
-            common: path.resolve(__dirname, '../src/common'),
-            components: path.resolve(__dirname, '../src/components')
+            '@common': path.resolve(__dirname, '../src/common'),
+            '@components': path.resolve(__dirname, '../src/components')
         },
+
         plugins: [
             new TsconfigPathsPlugin({
-                configFile: path.resolve(__dirname, '../')
+                configFile: path.resolve(__dirname, './../', 'tsconfig.json'),
+                extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
             })
         ]
     }
